@@ -1,15 +1,23 @@
-Project: Social Media Sentiment Analysis (Prolog Lexicon-Based) 
+PROJECT: Social Media Sentiment Analysis (Prolog Lexicon-Based) 
 
 
 
-Overview
+
+
+
+
+
+
+
+
+OVERVIEW
 
 This project implements a foundational Sentiment Analysis system using Prolog, leveraging its strengths in symbolic programming and rule-based inference. Instead of traditional machine learning, this system classifies text sentiment (Positive, Negative, or Neutral) based on a predefined sentiment lexicon and logical rules, including basic negation handling.
 
 This implementation is ideal for demonstrating logical AI concepts and simple, transparent sentiment classification.
 
 
-Features
+FEATURES
 
 . Lexicon-Based Scoring: Uses a predefined set of positive and negative words (facts) to score text.
 . Rule-Based Classification: Employs logical rules to categorize the total score as Positive, Negative, or Neutral.
@@ -18,7 +26,7 @@ Features
 
 
 
-Technology Stack
+TECHNOLOGY STACK
 
 
 . Language: Prolog
@@ -26,7 +34,7 @@ Technology Stack
 
 
 
-Installation and Setup
+INSTALLATION AND SETUP
 
 
 . Install Prolog: Ensure a Prolog interpreter (e.g., SWI-Prolog) is installed on your system.
@@ -38,7 +46,7 @@ Prolog
 
 
 
-Usage (Querying the System)
+USAGE (Querying the System)
 
 
 Once the file is loaded, you can query the system using the main predicates:
@@ -66,7 +74,7 @@ Sentiment = positive. % 'never bad' -> Positive
 
 
 
-Core Rules Summary
+CORE RULES SUMMARY
 
 
 The classification relies on the NetScore, which is calculated as $P_{Score} - N_{Score}
@@ -78,7 +86,7 @@ NetScore=0,Neutral,Sentiment = neutral
 
 
 
-Project Files
+PROJECT FILES
 
 
 social-media-sentiment-analysis/
@@ -87,7 +95,7 @@ social-media-sentiment-analysis/
 
 
 
-Extending the Lexicon
+EXTENDING THE LEXICON
 
 To improve accuracy, you can easily expand the knowledge base by adding more facts to sentiment_analysis.pl:
 
