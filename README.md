@@ -1,119 +1,98 @@
-# social-media-sentiment
+Project: Social Media Sentiment Analysis (Prolog Lexicon-Based) 
+
+
+
 Overview
-This project implements a Sentiment Analysis system designed to classify text data from social media (such as tweets or posts) into one of three categories: Positive, Negative, or Neutral. This tool is crucial for understanding public opinion, tracking brand reputation, and gaining insights from massive volumes of user-generated content.
 
-Shutterstock
+This project implements a foundational Sentiment Analysis system using Prolog, leveraging its strengths in symbolic programming and rule-based inference. Instead of traditional machine learning, this system classifies text sentiment (Positive, Negative, or Neutral) based on a predefined sentiment lexicon and logical rules, including basic negation handling.
 
-✨ Features
-Trained Model: Utilizes a machine learning model (e.g., Naive Bayes, Support Vector Machine, or Recurrent Neural Network) trained on a large labeled dataset of social media text.
+This implementation is ideal for demonstrating logical AI concepts and simple, transparent sentiment classification.
 
-Text Preprocessing: Includes steps for cleaning and preparing raw text, such as:
 
-Tokenization (breaking text into words).
+Features
 
-Stop word removal (eliminating common words like "the," "a," "is").
+. Lexicon-Based Scoring: Uses a predefined set of positive and negative words (facts) to score text.
+. Rule-Based Classification: Employs logical rules to categorize the total score as Positive, Negative, or Neutral.
+. Negation Handling: Includes rules to invert the sentiment score when negation words (e.g., not, never) precede a sentiment word.
+. Tokenization Utility: Provides an optional utility predicate (analyze_text/2) to easily process raw text strings (requires compatible Prolog environment like SWI-Prolog).
 
-Lemmatization/Stemming (reducing words to their base form).
 
-Handling emojis and slang.
 
-Classification: Predicts the sentiment of any given text input as Positive, Negative, or Neutral.
+Technology Stack
 
-Evaluation Metrics: Reports standard performance metrics like Accuracy, Precision, Recall, and F1-Score.
 
-🛠️ Technology Stack
-Language: Python
+. Language: Prolog
+. Prolog Implementation: Any standard Prolog interpreter (e.g., SWI-Prolog is recommended, especially for the string utilities in analyze_text/2).
 
-Machine Learning/Data Science Libraries:
 
-Scikit-learn (for classical ML models and evaluation)
 
-NLTK or SpaCy (for text preprocessing)
+Installation and Setup
 
-Pandas (for data manipulation)
 
-(Optional for Deep Learning) TensorFlow or PyTorch
+. Install Prolog: Ensure a Prolog interpreter (e.g., SWI-Prolog) is installed on your system.
+. Save the Code: Save the provided Prolog code into a file named sentiment_analysis.pl.
+. Load the File: Open your Prolog interpreter and consult the file:
 
-⚙️ Installation and Setup
-Clone the repository:
+Prolog
+?- consult('sentiment_analysis.pl').
 
-Bash
 
-git clone https://github.com/yourusername/social-media-sentiment-analysis.git
-cd social-media-sentiment-analysis
-Create and activate a virtual environment (Recommended):
 
-Bash
+Usage (Querying the System)
 
-python -m venv venv
-source venv/bin/activate  # On Linux/macOS
-# .\venv\Scripts\activate  # On Windows
-Install the required dependencies:
 
-Bash
+Once the file is loaded, you can query the system using the main predicates:
 
-pip install -r requirements.txt
-Download NLTK resources: If using NLTK, you might need to run the following in a Python interpreter once:
+1. Basic List Analysis (classify_sentiment/2)
+This predicate takes a list of pre-tokenized, lowercased words (atoms) and returns the sentiment.
 
-Python
+Example Query,Description,Expected Output
+"?- classify_sentiment([this, product, is, great], S).",Direct positive word count.,S = positive
+"?- classify_sentiment([i, hate, that, slow, service], S).",Direct negative word count.,S = negative
+"?- classify_sentiment([it, was, good, but, disappointing], S).","Balanced sentiment (1 Positive, 1 Negative).",S = neutral
+"?- classify_sentiment([the, phone, is, not, good], S).",Test of the negation rule (not good -> Negative).,S = negative
 
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-🚀 Usage
-1. Training the Model
-To train the sentiment analysis model using the provided dataset (data/training_data.csv):
 
-Bash
 
-python train_model.py
-This script will save the trained model object (e.g., sentiment_model.pkl) to the models/ directory.
+2. String Analysis (analyze_text/2)
+(Requires SWI-Prolog or similar string handling features.) This predicate takes a standard quoted text string and handles tokenization and lowercasing before classification.
 
-2. Predicting Sentiment
-To predict the sentiment of a new piece of text using the saved model:
+Prolog
+?- analyze_text('This product is absolutely amazing! Highly recommend.', Sentiment).
+Sentiment = positive.
 
-Bash
+?- analyze_text('I never said it was bad; it was just slow.', Sentiment).
+Sentiment = positive. % 'never bad' -> Positive
 
-python predict_sentiment.py "This product is absolutely amazing! Highly recommend."
-Example Output:
 
-Text: "This product is absolutely amazing! Highly recommend."
-Predicted Sentiment: Positive
-You can also use the interactive mode:
 
-Bash
+Core Rules Summary
 
-python interactive_mode.py
-📂 Project Structure
+
+The classification relies on the NetScore, which is calculated as $P_{Score} - N_{Score}
+
+Net Score Condition,Sentiment,Prolog Rule
+NetScore>0,Positive,NetScore > 0 -> Sentiment = positive
+NetScore<0,Negative,NetScore < 0 -> Sentiment = negative
+NetScore=0,Neutral,Sentiment = neutral
+
+
+
+Project Files
+
+
 social-media-sentiment-analysis/
-├── data/
-│   ├── training_data.csv        # The labeled dataset for training
-│   └── test_data.csv            # Data for final evaluation
-├── models/
-│   └── sentiment_model.pkl      # Saved trained model
-├── scripts/
-│   ├── preprocess.py            # Text cleaning functions
-│   ├── featurize.py             # Text-to-vector transformation (e.g., TF-IDF)
-├── train_model.py               # Script to train and save the model
-├── predict_sentiment.py         # Script for single prediction
-├── interactive_mode.py          # Script for command-line interactive use
-├── requirements.txt             # List of Python dependencies
+├── sentiment_analysis.pl      # The core Prolog code (Lexicon, Scoring Rules, Classification)
 └── README.md
-🤝 Contributing
-Contributions are welcome! If you have suggestions for improving the model, preprocessing steps, or the code base, please feel free to:
 
-Fork the repository.
 
-Create a new feature branch (git checkout -b feature/AmazingFeature).
 
-Commit your changes (git commit -m 'Add some AmazingFeature').
+Extending the Lexicon
 
-Push to the branch (git push origin feature/AmazingFeature).
+To improve accuracy, you can easily expand the knowledge base by adding more facts to sentiment_analysis.pl:
 
-Open a Pull Request.
-
-📄 License
-Distributed under the MIT License. See LICENSE for more information.
-
-Would you like me to focus on a specific library (e.g., TensorFlow, Scikit-learn) or a particular deployment method (e.g., a simple web app) for a more detailed section?
+Prolog
+% Example additions
+positive(superb).
+negative(useless).
+negation_word(hardly). 
