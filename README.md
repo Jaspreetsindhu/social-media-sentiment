@@ -87,7 +87,7 @@ NetScore=0,Neutral,Sentiment = neutral
 
 
 
-PROJECT FILES
+📂 PROJECT FILES
 
 
 social-media-sentiment-analysis/
@@ -96,7 +96,7 @@ social-media-sentiment-analysis/
 
 
 
-EXTENDING THE LEXICON
+🤝 EXTENDING THE LEXICON
 
 To improve accuracy, you can easily expand the knowledge base by adding more facts to sentiment_analysis.pl:
 
